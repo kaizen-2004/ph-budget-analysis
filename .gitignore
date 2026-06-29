@@ -1,0 +1,17 @@
+# Data files (too large for git)
+data/raw/*.json
+data/clean/*.csv
+data/clean/*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Power BI lock files
+data/powerbi/.~lock.*
+
+# OS
+.DS_Store
+Thumbs.db

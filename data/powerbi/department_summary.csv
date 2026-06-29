@@ -1,0 +1,6 @@
+department,total_budget,item_count,avg_budget,max_budget,pct_of_total
+Unknown,605584552.0,83562,7247.128503386707,31389800.0,90.27
+Department of Environment and Natural Resources (DENR),44096151.0,444,99315.6554054054,3134482.0,6.57
+Department of Social Welfare and Development (DSWD),10707927.0,424,25254.544811320753,2250000.0,1.6
+Department of Migrant Workers (DMW),8579486.0,15466,554.7320574162679,471631.0,1.28
+Civil Service Commission (CSC),1885462.0,104,18129.44230769231,770800.0,0.28
