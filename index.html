@@ -7,43 +7,44 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #0f172a; min-height: 100vh; }
 
-        .header { padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .header h1 { font-size: 1.2rem; font-weight: 600; color: #fff; }
-        .header h1 span { color: #58A6FF; }
-        .header-meta { text-align: right; color: #555; font-size: 0.8rem; }
+        .header { padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 8px; }
+        .header h1 { font-size: 1.2rem; font-weight: 600; color: #0f172a; }
+        .header h1 span { color: #2563eb; }
+        .header-meta { text-align: right; color: #475569; font-size: 0.8rem; }
 
-        .problem-section { padding: 24px 32px; background: rgba(88,166,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .problem-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #58A6FF; margin-bottom: 8px; }
-        .problem-text { font-size: 1rem; color: #b0b0b0; line-height: 1.6; max-width: 900px; }
-        .problem-text strong { color: #fff; }
+        .problem-section { padding: 24px 32px; background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+        .problem-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #2563eb; margin-bottom: 8px; }
+        .problem-text { font-size: 1rem; color: #475569; line-height: 1.6; max-width: 900px; }
+        .problem-text strong { color: #0f172a; }
 
         .main { padding: 24px 32px; }
 
-        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-        .section-num { background: #58A6FF; color: #0a0a1a; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-        .section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; }
-        .section-answer { font-size: 0.9rem; color: #58A6FF; margin-left: auto; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+        .section-num { background: #2563eb; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+        .section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; }
+        .section-answer { font-size: 0.9rem; color: #2563eb; margin-left: auto; white-space: nowrap; }
 
-        .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
-        .kpi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 16px; }
-        .kpi-label { color: #555; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-value { font-size: 1.4rem; font-weight: 700; color: #fff; margin-top: 4px; }
-        .kpi-sub { color: #58A6FF; font-size: 0.75rem; margin-top: 4px; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 32px; }
+        .kpi { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+        .kpi-label { color: #475569; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-top: 4px; }
+        .kpi-sub { color: #2563eb; font-size: 0.75rem; margin-top: 4px; }
 
-        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-        .chart-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 16px; }
-        .chart-card h4 { font-size: 0.8rem; color: #666; margin-bottom: 12px; font-weight: 500; }
-        .chart-container { height: 220px; position: relative; }
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 32px; }
+        .chart-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; min-width: 0; }
+        .chart-card h4 { font-size: 0.8rem; color: #475569; margin-bottom: 12px; font-weight: 500; }
+        .chart-container { height: 220px; position: relative; width: 100%; }
 
-        .insights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
-        .insight-card { background: rgba(88,166,255,0.04); border: 1px solid rgba(88,166,255,0.15); border-radius: 8px; padding: 16px; }
-        .insight-card h5 { font-size: 0.75rem; color: #58A6FF; margin-bottom: 6px; font-weight: 500; }
-        .insight-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
+        .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
+        .insight-card { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px; }
+        .insight-card h5 { font-size: 0.75rem; color: #1d4ed8; margin-bottom: 6px; font-weight: 500; }
+        .insight-card p { font-size: 0.8rem; color: #475569; line-height: 1.5; }
 
-        .footer { padding: 16px 32px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; color: #333; font-size: 0.75rem; }
-        .footer a { color: #58A6FF; text-decoration: none; }
+        .footer { padding: 16px 32px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; color: #475569; font-size: 0.75rem; flex-wrap: wrap; gap: 8px; }
+        .footer a { color: #2563eb; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -55,8 +56,8 @@
     <div class="problem-section">
         <div class="problem-label">Problem Statement</div>
         <div class="problem-text">
-            Philippine government budget data is publicly available but <strong>locked in complex JSON formats</strong>. 
-            Analyzing <strong>682,814 records across 7 batches</strong> requires automated data pipelines 
+            Philippine government budget data is publicly available but <strong>locked in complex JSON formats</strong>.
+            Analyzing <strong>682,814 records across 7 batches</strong> requires automated data pipelines
             to extract meaningful insights on department and regional allocations.
         </div>
     </div>
@@ -161,43 +162,43 @@
     </div>
 
     <script>
-        Chart.defaults.color = '#888';
-        Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+        Chart.defaults.color = '#475569';
+        Chart.defaults.borderColor = '#e2e8f0';
 
         new Chart(document.getElementById('deptChart'), {
             type: 'bar',
             data: {
                 labels: ['DPWH', 'DILG', 'DSWD', 'DOH', 'DND', 'BSGC', 'DOTr', 'DENR'],
-                datasets: [{ data: [997.9, 265.5, 258.8, 246.7, 242.4, 198.0, 73.9, 70.5], backgroundColor: '#58A6FF', borderRadius: 4 }]
+                datasets: [{ data: [997.9, 265.5, 258.8, 246.7, 242.4, 198.0, 73.9, 70.5], backgroundColor: '#2563eb', borderRadius: 4 }]
             },
-            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#555', callback: v => `P${v}M` } }, y: { grid: { display: false } } } }
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569', callback: v => `P${v}M` } }, y: { grid: { display: false }, ticks: { color: '#475569' } } } }
         });
 
         new Chart(document.getElementById('pieChart'), {
             type: 'doughnut',
             data: {
                 labels: ['DPWH', 'DILG', 'DSWD', 'DOH', 'DND', 'Others'],
-                datasets: [{ data: [35.8, 9.5, 9.3, 8.9, 8.7, 27.8], backgroundColor: ['#58A6FF', '#3FB950', '#D29922', '#F85149', '#BC8CFF', '#484F58'] }]
+                datasets: [{ data: [35.8, 9.5, 9.3, 8.9, 8.7, 27.8], backgroundColor: ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#7c3aed', '#64748b'] }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { padding: 12, color: '#888' } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { padding: 12, color: '#475569' } } } }
         });
 
         new Chart(document.getElementById('regionChart'), {
             type: 'bar',
             data: {
                 labels: ['NCR', 'IV-A', 'III', 'VI', 'VII', 'V', 'VIII', 'I'],
-                datasets: [{ data: [2569.8, 241.9, 227.8, 178.4, 166.8, 160.1, 139.2, 129.5], backgroundColor: '#3FB950', borderRadius: 4 }]
+                datasets: [{ data: [2569.8, 241.9, 227.8, 178.4, 166.8, 160.1, 139.2, 129.5], backgroundColor: '#16a34a', borderRadius: 4 }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#555', callback: v => `P${v}M` } }, x: { grid: { display: false } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569', callback: v => `P${v}M` } }, x: { grid: { display: false }, ticks: { color: '#475569' } } } }
         });
 
         new Chart(document.getElementById('categoryChart'), {
             type: 'polarArea',
             data: {
                 labels: ['Infrastructure', 'Social Services', 'Governance', 'Economic', 'Defense'],
-                datasets: [{ data: [997.9, 505.5, 358.0, 198.0, 242.4], backgroundColor: ['rgba(88,166,255,0.6)', 'rgba(63,185,80,0.6)', 'rgba(210,153,34,0.6)', 'rgba(248,81,73,0.6)', 'rgba(188,140,255,0.6)'] }]
+                datasets: [{ data: [997.9, 505.5, 358.0, 198.0, 242.4], backgroundColor: ['rgba(37,99,235,0.6)', 'rgba(22,163,74,0.6)', 'rgba(217,119,6,0.6)', 'rgba(220,38,38,0.6)', 'rgba(124,58,237,0.6)'] }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { padding: 12, color: '#888' } } }, scales: { r: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { display: false } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { padding: 12, color: '#475569' } } }, scales: { r: { grid: { color: '#e2e8f0' }, ticks: { display: false } } } }
         });
     </script>
 </body>
